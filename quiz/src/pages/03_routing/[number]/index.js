@@ -26,38 +26,12 @@ const LabelInput = ({ label, value }) => {
   );
 };
 
-const ItemWrap = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 10px 50px 0 50px;
-`;
-
-const Label = styled.span`
-  display: flex;
-  flex: 2;
-  font-family: ${fonts.regular};
-  color: ${colors.gray03};
-  font-size: 14px;
-`;
-
-const Input = styled.span`
-  display: flex;
-  flex: 5;
-  padding: 10px;
-  font-family: ${fonts.regular};
-  color: ${colors.black};
-  font-size: 16px;
-  background-color: ${colors.gray06};
-`;
-
 export default () => {
-  const {
-    query: { number },
-  } = useRouter();
+  const { query } = useRouter();
   const { data } = useQuery(FETCH_PRODUCT, {
-    variables: { productId: number },
+    variables: { productId: query.number },
   });
-  console.log(data);
+
   return (
     <Body>
       <Container>
@@ -88,7 +62,6 @@ const Body = styled.div`
   align-items: center;
   background-color: ${colors.gray06};
 `;
-
 const Container = styled.div`
   background-color: ${colors.white};
   width: 60%;
@@ -107,17 +80,6 @@ const Title = styled.p`
   font-size: 40px;
   color: ${colors.black};
 `;
-const Button = styled.button`
-  align-items: center;
-  width: 40%;
-  padding: 10px;
-  margin: 40px auto 0 auto;
-  border: none;
-  background-color: ${colors.gray05};
-  color: ${colors.black};
-  font-family: ${fonts.medium};
-`;
-
 const Loading = styled.span`
   height: 50vh;
   display: flex;
@@ -126,4 +88,29 @@ const Loading = styled.span`
   font-family: ${fonts.medium};
   font-size: 32px;
   color: ${colors.gray05};
+`;
+
+// LabelInput
+const ItemWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px 50px 0 50px;
+`;
+
+const Label = styled.span`
+  display: flex;
+  flex: 2;
+  font-family: ${fonts.regular};
+  color: ${colors.gray03};
+  font-size: 14px;
+`;
+
+const Input = styled.span`
+  display: flex;
+  flex: 5;
+  padding: 10px;
+  font-family: ${fonts.regular};
+  color: ${colors.black};
+  font-size: 16px;
+  background-color: ${colors.gray06};
 `;

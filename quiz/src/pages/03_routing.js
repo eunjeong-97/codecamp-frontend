@@ -33,26 +33,6 @@ const LabelInput = ({ type = "text", setState, placeholder, label }) => {
   );
 };
 
-const ItemWrap = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-`;
-
-const Label = styled.span`
-  display: flex;
-  flex: 2;
-  font-family: ${fonts.regular};
-  color: ${colors.gray03};
-  font-size: 14px;
-`;
-
-const Input = styled.input`
-  display: flex;
-  flex: 5;
-  padding: 10px;
-`;
-
 export default () => {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -76,6 +56,7 @@ export default () => {
       router.push(`03_routing/${createProduct._id}`);
     } catch (error) {
       console.log(error);
+      alert(error.message);
     }
   };
   return (
@@ -110,6 +91,7 @@ export default () => {
   );
 };
 
+// Layout
 const Body = styled.div`
   width: 100vw;
   height: 100vh;
@@ -119,7 +101,6 @@ const Body = styled.div`
   align-items: center;
   background-color: ${colors.gray06};
 `;
-
 const Container = styled.div`
   background-color: ${colors.white};
   width: 60%;
@@ -147,4 +128,25 @@ const Button = styled.button`
   background-color: ${colors.gray05};
   color: ${colors.black};
   font-family: ${fonts.medium};
+`;
+
+// LabelInput
+const ItemWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const Label = styled.span`
+  display: flex;
+  flex: 2;
+  font-family: ${fonts.regular};
+  color: ${colors.gray03};
+  font-size: 14px;
+`;
+
+const Input = styled.input`
+  display: flex;
+  flex: 5;
+  padding: 10px;
 `;
