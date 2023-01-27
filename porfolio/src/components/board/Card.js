@@ -32,7 +32,9 @@ export default ({ title, writer, time, likeNum, idx, id }) => {
   };
   return (
     <Container width={cardWidth}>
-      <Top style={{ backgroundImage: `url(${card01.src})` }} />
+      <TopBtn onClick={() => alert("카드버튼누름", idx)}>
+        <Top style={{ backgroundImage: `url(${card01.src})` }} />
+      </TopBtn>
       <Content>
         <Title>{title}</Title>
         <Row>
@@ -62,10 +64,9 @@ export default ({ title, writer, time, likeNum, idx, id }) => {
     </Container>
   );
 };
-const Container = styled.button`
+const Container = styled.div`
   background-color: transparent;
   border: none;
-  cursor: pointer;
   padding: 0;
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
@@ -84,6 +85,14 @@ const Top = styled.div`
   aspect-ratio: 282/120;
   background-size: contain;
   background-repeat: no-repeat;
+`;
+const TopBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0;
 `;
 const Content = styled.div`
   border-bottom-left-radius: 20px;

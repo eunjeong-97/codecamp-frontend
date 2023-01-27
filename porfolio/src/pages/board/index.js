@@ -22,18 +22,43 @@ const FETCH_BEST_BOARDS = gql`
   }
 `;
 
-const BoardItem = ({ num, title, writer, date }) => {
-  return (
-    <Row>
-      <Column></Column>
-    </Row>
-  );
-};
+const FETCH_BOARDS = gql`
+  query fetchBoards(
+    $endDate: DateTime
+    $startDate: DateTime
+    $search: String
+    $page: Int
+  ) {
+    fetchBoards(
+      endDate: $endDate
+      startDate: $startDate
+      search: $search
+      page: $page
+    ) {
+      _id
+      writer
+      title
+      createdAt
+    }
+  }
+`;
+
+const BoardItem = ({ num, title, writer, date, border }) => (
+  <Row border={border}>
+    <Column flex={7.5}>{num}</Column>
+    <Column flex={72.5}>{title}</Column>
+    <Column flex={10}>{writer}</Column>
+    <Column flex={10}>{date}</Column>
+  </Row>
+);
 
 export default () => {
   const [input, setInput] = useState("");
   const [dateInput, setDateInput] = useState("");
   const { data: bestData } = useQuery(FETCH_BEST_BOARDS);
+  const { data } = useQuery(FETCH_BOARDS, {
+    variables: { endDate: null, startDate: null, search: "", page: 1 },
+  });
 
   const onSearch = async () => {
     if (!input) {
@@ -46,6 +71,8 @@ export default () => {
     }
     alert({ input, dateInput });
   };
+
+  console.log(data?.fetchBoards);
   return (
     <div style={{ paddingBottom: 300 }}>
       <Header />
@@ -93,7 +120,17 @@ export default () => {
       </Row>
 
       {/* 게시물 */}
-      <Boards></Boards>
+      <Boards>
+        <BoardItem num="번호" title="제목" writer="작성자" date="날짜" border />
+
+        <BoardItem
+          num="1"
+          title="게시물 제목입니다."
+          writer="박은정"
+          date="2020.09.28"
+          border
+        />
+      </Boards>
     </div>
   );
 };
@@ -112,7 +149,8 @@ const Row = styled.div`
   align-items: center;
   margin: 0 auto;
   flex-wrap: wrap;
-  margin-top: ${(props) => props.mt}px;
+  margin-top: ${({ mt }) => mt}px;
+  border-bottom: ${({ border }) => `1px solid ${border && colors.gray04}`};
   @media screen and (max-width: 1199px) {
     margin: 0 20px;
   }
@@ -165,5 +203,19 @@ const SearchBtn = styled.button`
   color: ${colors.white};
 `;
 
-const Boards = styled.div``;
-const Column = styled.p``;
+const Boards = styled.div`
+  border-top: 1px solid ${colors.black};
+  border-bottom: 1px solid ${colors.black};
+  margin: 40px auto 60px auto;
+  max-width: 1200px;
+  @media screen and (max-width: 1199px) {
+    margin: 40px 20px 60px 20px;
+  }
+`;
+const Column = styled.div`
+  padding: 10px 0;
+  text-align: center;
+  display: flex;
+  flex: ${({ flex }) => flex};
+  justify-content: center;
+`;
