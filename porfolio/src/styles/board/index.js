@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { colors, fonts, Shadow } from "@/styles/globalStyle";
-import Image from "next/image";
+import { colors, fonts } from "@/styles/globalStyle";
 
 export const Title = styled.p`
   text-align: center;
@@ -18,6 +17,7 @@ export const Row = styled.div`
   flex-wrap: wrap;
   margin-top: ${({ mt }) => mt}px;
   border-bottom: ${({ border }) => `1px solid ${border && colors.gray04}`};
+  cursor: ${({ pointer }) => !!pointer && "pointer"};
   @media screen and (max-width: 1199px) {
     padding: 0 20px;
   }
@@ -148,3 +148,5 @@ export const ImageBtn = styled.button`
   margin-left: ${({ ml }) => ml || 0}px;
   margin-right: ${({ mr }) => mr || 0}px;
 `;
+
+export const BoardBtn = styled.button``;

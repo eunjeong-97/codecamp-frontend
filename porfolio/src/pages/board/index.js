@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import Header from "@/components/common/Header";
 import Banner from "@/components/common/Banner";
@@ -53,8 +53,14 @@ const FETCH_BOARDS_COUNT = gql`
   }
 `;
 
-const BoardItem = ({ num, title, writer, date, border }) => (
-  <S.Row border={border}>
+const BoardItem = ({ num, title, writer, date, border, onClick }) => (
+  <S.Row
+    border={border}
+    onClick={() => {
+      if (onClick) onClick();
+    }}
+    pointer={!!onClick}
+  >
     <S.Column flex={7} bold={typeof num === "string"}>
       {num}
     </S.Column>
@@ -106,7 +112,7 @@ export default () => {
   };
 
   return (
-    <div style={{ paddingBottom: 300 }}>
+    <div style={{ paddingBottom: 400 }}>
       <Header />
       <Banner />
 
@@ -168,6 +174,7 @@ export default () => {
                 writer={writer}
                 date={`${year}.${month}.${date}`}
                 border={data?.fetchBoards.length !== idx + 1}
+                onClick={() => router.push(`/board/${id}`)}
               />
             );
           })}
