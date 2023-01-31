@@ -84,7 +84,9 @@ export default () => {
       <S.ButtonWrap>
         <button onClick={() => router.push("/board/")}>목록으로</button>
         <button
-          onClick={() => router.push(`/board/${router.query.boardId}/edit`)}
+          onClick={() =>
+            router.push(`/board/detail/${router.query.boardId}/edit`)
+          }
         >
           수정하기
         </button>
@@ -93,7 +95,7 @@ export default () => {
         <Image
           width={24}
           height={24}
-          src={require("../../../../public/image/ico_chatting_create.png")}
+          src={require("../../../../../public/image/ico_chatting_create.png")}
         />
         <span>댓글</span>
       </S.CommentHeader>

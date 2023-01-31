@@ -174,7 +174,7 @@ export default () => {
                 writer={writer}
                 date={`${year}.${month}.${date}`}
                 border={data?.fetchBoards.length !== idx + 1}
-                onClick={() => router.push(`/board/${id}`)}
+                onClick={() => router.push(`/board/detail/${id}`)}
               />
             );
           })}
