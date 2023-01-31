@@ -46,20 +46,20 @@ export default () => {
       </Container>
       <MenuWrap>
         <Menu
-          active={router.pathname === "/board"}
+          active={router.pathname.includes("/board")}
           onClick={() => router.push("/board")}
         >
           자유게시판
         </Menu>
         <Menu
-          active={router.pathname === "/market"}
+          active={router.pathname.includes("/market")}
           center
           onClick={() => alert("준비중입니다!")}
         >
           중고마켓
         </Menu>
         <Menu
-          active={router.pathname === "/profile"}
+          active={router.pathname.includes("/profile")}
           onClick={() => alert("준비중입니다!")}
         >
           마이페이지

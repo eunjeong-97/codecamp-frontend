@@ -7,6 +7,7 @@ import Header from "@/components/common/Header";
 import Banner from "@/components/common/Banner";
 import * as S from "@/styles/board/detail";
 import Star from "@/components/common/Star";
+import Comment from "@/components/board/Comment";
 
 const CREATE_BOARD_COMMENT = gql`
   mutation createBoardComment(
@@ -25,10 +26,29 @@ const CREATE_BOARD_COMMENT = gql`
   }
 `;
 
+const FETCH_BOARD_COMMENTS = gql`
+  query fetchBoardComments($page: Int, $boardId: ID!) {
+    fetchBoardComments(page: $page, boardId: $boardId) {
+      _id
+      writer
+      contents
+      rating
+      user {
+        name
+        picture
+      }
+      createdAt
+    }
+  }
+`;
+
 export default () => {
   const [comment, setComment] = useState("");
   const router = useRouter();
   const [createBoardCommentFunc] = useMutation(CREATE_BOARD_COMMENT);
+  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
+    variables: { boardId: router.query.boardId },
+  });
   const submitComment = async () => {
     if (!comment) {
       alert("댓글을 입력해주세요.");
@@ -96,6 +116,10 @@ export default () => {
           <button onClick={submitComment}>등록하기</button>
         </S.CommentButtonWrap>
       </S.CommentInputWrap>
+      {data?.fetchBoardComments &&
+        data?.fetchBoardComments.map((commentObj, idx) => (
+          <Comment {...commentObj} key={commentObj._id} />
+        ))}
     </div>
   );
 };

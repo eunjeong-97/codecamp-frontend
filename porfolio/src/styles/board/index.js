@@ -45,6 +45,9 @@ export const Input = styled.input`
   font-family: ${fonts.medium};
   font-size: 16px;
   color: ${colors.black};
+  @media screen and (max-width: 1199px) {
+    padding: 0 18px 0 2px;
+  }
 `;
 
 export const DateInput = styled.input`
