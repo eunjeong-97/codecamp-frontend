@@ -8,7 +8,7 @@ import QQQ, {
   Label,
   Input,
 } from "./BoardWrite.styles";
-import * as S from "./BoardWrite.styles";
+// import * as S from "./BoardWrite.styles";
 
 const LabelInput = ({ type = "text", setState, placeholder, label }) => {
   return (
@@ -30,12 +30,14 @@ export default function BoardWriteUI({
   setSeller,
   onSubmit,
   btnColor,
+  isNew,
 }) {
+  const type = isNew ? "등록" : "수정";
   return (
     <Body>
       <Container>
         <Header>
-          <Title>상품등록화면_setState</Title>
+          <Title>상품{type}화면_setState</Title>
         </Header>
         <LabelInput
           label="상품명"
@@ -52,13 +54,15 @@ export default function BoardWriteUI({
           placeholder="상품설명을 입력해주세요."
           setState={setDetail}
         />
-        <LabelInput
-          label="판매자"
-          placeholder="판매자을 입력해주세요."
-          setState={setSeller}
-        />
+        {isNew && (
+          <LabelInput
+            label="판매자"
+            placeholder="판매자을 입력해주세요."
+            setState={setSeller}
+          />
+        )}
         <Button onClick={onSubmit} color={btnColor}>
-          상품등록하기
+          상품{type}하기
         </Button>
       </Container>
     </Body>
